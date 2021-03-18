@@ -8,24 +8,24 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div class="container">
-      <div id="toolbar">
-        <div>
-          <button>Import</button>
-          <button>Export</button>
-        </div>
-        <form id="map-size-form" action="#">
-          <label>
-            <span>Width:</span>
-            <input id="map-size-height" type="number" />
-          </label>
-          <label>
-            <span>Height:</span>
-            <input id="map-size-height" type="height" />
-          </label>
-          <button type="submit">Change</button>
-        </form>
+    <div id="toolbar">
+      <div>
+        <button>Import</button>
+        <button>Export</button>
       </div>
+      <form id="map-size-form" action="#">
+        <label>
+          <span>Width:</span>
+          <input id="map-size-width" min="1" step="1" type="number" />
+        </label>
+        <label>
+          <span>Height:</span>
+          <input id="map-size-height" min="1" step="1" type="number" />
+        </label>
+        <button type="submit">Change</button>
+      </form>
+    </div>
+    <div class="container">
       <div id="assets-pane"></div>
       <div id="map-pane"></div>
     </div>
