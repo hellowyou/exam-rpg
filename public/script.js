@@ -310,7 +310,6 @@
     dlEl.click();
   }
 
-
   /**
    * Initialization
    */
