@@ -197,7 +197,13 @@
 
     importInput.click();
 
-    importInput.onchange = async (event) => {
+    /**
+     * @param {InputEvent} event
+     */
+    async function onChange(event) {
+      if (event.target.files.length === 0) {
+        return;
+      }
       const file = event.target.files[0];
 
       try {
@@ -210,6 +216,8 @@
         alert('Error importing file: ' + e.message);
       }
     }
+
+    importInput.onchange = onChange;
   }
 
   /**
