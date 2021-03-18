@@ -21,10 +21,6 @@
       label: 'Tree'
     },
   };
-  const assetsPaneEl = document.getElementById('assets-pane');
-  const mapPanelEL = document.getElementById('map-pane');
-  const widthEl = document.getElementById('map-size-width');
-  const heightEl = document.getElementById('map-size-height');
   let mapConfig = {
     size: {
       width: 15,
@@ -32,103 +28,12 @@
     },
     items: [],
   };
+  const assetsPaneEl = document.getElementById('assets-pane');
+  const mapPanelEL = document.getElementById('map-pane');
+  const widthEl = document.getElementById('map-size-width');
+  const heightEl = document.getElementById('map-size-height');
 
-  /**
-   * Renders the left pane, add layer items.
-   */
-  function renderAssetLayer() {
-    Object.keys(assets).forEach(asset => {
-      const assetInfo = assets[asset];
-      const assetEl = document.createElement('img');
 
-      addClass(assetEl, 'asset-item');
-      elementData(assetEl, 'asset', asset);
-      assetEl.setAttribute('src', assetInfo.src);
-      assetEl.setAttribute('title', assetInfo.label);
-
-      assetsPaneEl.appendChild(assetEl);
-      assetEl.addEventListener('click', () => {
-        const el = getActiveTileElement();
-
-        if (!el) {
-          return alert('Please select a tile to apply the layer on');
-        }
-
-        const coords = parseCoordsFromTileHTMLElement(el);
-
-        addAsset(coords, asset);
-        renderMap();
-        setActiveTile(coords);
-      });
-    });
-  }
-
-  /**
-   * Render the map pane, create tiles, and set layers.
-   */
-  function renderMap() {
-    const { width, height } = mapConfig.size;
-
-    // Clear children
-    mapPanelEL.innerHTML = '';
-
-    // We also need to arrange the boxes
-    mapPanelEL.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
-    mapPanelEL.style.gridTemplateRows = `repeat(${height}, 1fr)`;
-
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        createTile({ x, y });
-        renderCoordsLayer({ x, y });
-      }
-    }
-  }
-
-  /**
-   * Renders the layers of the given coordinate.
-   *
-   * @param {*} coords
-   */
-  function renderCoordsLayer(coords) {
-    const tileEl = getTileElementByCoords(coords);
-
-    if (tileEl) {
-      tileEl.innerHTML = '';
-      const item = mapConfig.items.find(({ x, y }) => coords.x === x && coords.y === y);
-
-      if (item) {
-        Object.keys(item.layers).forEach(level => {
-          const { asset } = item.layers[level];
-          const el = document.createElement('img');
-
-          el.setAttribute('src', assets[asset].src);
-          el.style.zIndex = +level;
-          tileEl.appendChild(el);
-        });
-      }
-    }
-  }
-
-  /**
-   * Prefill and listen to form
-   */
-  function setupMapSize() {
-    const form = document.getElementById('map-size-form');
-    const { size } = mapConfig;
-
-    // Handle form submission
-    form.onsubmit = (e) => {
-      e.preventDefault();
-      setMapSize(+widthEl.value, +heightEl.value);
-      removeOutboundedTiles();
-      renderMap();
-      setActiveTile({ x: 0, y: 0 });
-    }
-
-    // Pre-fill the form inputs
-    widthEl.value = size.width;
-    heightEl.value = size.height;
-  }
 
   /**
    * Add the asset to the given coordinate.
@@ -320,6 +225,104 @@
     dlEl.setAttribute('href', dataStr);
     dlEl.setAttribute('download', 'map-config.json');
     dlEl.click();
+  }
+
+
+  /**
+   * Renders the left pane, add layer items.
+   */
+  function renderAssetLayer() {
+    Object.keys(assets).forEach(asset => {
+      const assetInfo = assets[asset];
+      const assetEl = document.createElement('img');
+
+      addClass(assetEl, 'asset-item');
+      elementData(assetEl, 'asset', asset);
+      assetEl.setAttribute('src', assetInfo.src);
+      assetEl.setAttribute('title', assetInfo.label);
+
+      assetsPaneEl.appendChild(assetEl);
+      assetEl.addEventListener('click', () => {
+        const el = getActiveTileElement();
+
+        if (!el) {
+          return alert('Please select a tile to apply the layer on');
+        }
+
+        const coords = parseCoordsFromTileHTMLElement(el);
+
+        addAsset(coords, asset);
+        renderMap();
+        setActiveTile(coords);
+      });
+    });
+  }
+
+  /**
+   * Render the map pane, create tiles, and set layers.
+   */
+  function renderMap() {
+    const { width, height } = mapConfig.size;
+
+    // Clear children
+    mapPanelEL.innerHTML = '';
+
+    // We also need to arrange the boxes
+    mapPanelEL.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
+    mapPanelEL.style.gridTemplateRows = `repeat(${height}, 1fr)`;
+
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        createTile({ x, y });
+        renderCoordsLayer({ x, y });
+      }
+    }
+  }
+
+  /**
+   * Renders the layers of the given coordinate.
+   *
+   * @param {*} coords
+   */
+  function renderCoordsLayer(coords) {
+    const tileEl = getTileElementByCoords(coords);
+
+    if (tileEl) {
+      tileEl.innerHTML = '';
+      const item = mapConfig.items.find(({ x, y }) => coords.x === x && coords.y === y);
+
+      if (item) {
+        Object.keys(item.layers).forEach(level => {
+          const { asset } = item.layers[level];
+          const el = document.createElement('img');
+
+          el.setAttribute('src', assets[asset].src);
+          el.style.zIndex = +level;
+          tileEl.appendChild(el);
+        });
+      }
+    }
+  }
+
+  /**
+   * Prefill and listen to form
+   */
+  function setupMapSize() {
+    const form = document.getElementById('map-size-form');
+    const { size } = mapConfig;
+
+    // Handle form submission
+    form.onsubmit = (e) => {
+      e.preventDefault();
+      setMapSize(+widthEl.value, +heightEl.value);
+      removeOutboundedTiles();
+      renderMap();
+      setActiveTile({ x: 0, y: 0 });
+    }
+
+    // Pre-fill the form inputs
+    widthEl.value = size.width;
+    heightEl.value = size.height;
   }
 
   /**
