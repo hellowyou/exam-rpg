@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+#assets-pane {
+  padding: 12px;
+  border-top: 0;
+  border-bottom: 0;
+}
+
+/* Let's make button pretty shall we */
+button {
+  background-color: #4caf4c;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#toolbar {
+  width: 100%;
+  padding: 12px;
+  background-color: gray;
+  display: flex;
+  justify-content: space-around;
+}
+
+#map-pane {
+  display: grid;
+  flex-grow: 1;
+  border: 1px;
+}
+
+.asset-item {
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.tile {
+  border: 1px solid black;
+  position: relative;
+  /* Make square tile */
+  padding-top: 100%;
+}
+
+.tile.selected {
+  border-color: blue;
+}
+
+.layer-1 {
+  z-index: 1;
+}
+
+.layer-2 {
+  z-index: 2;
+}

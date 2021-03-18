@@ -1,0 +1,29 @@
+
+Ok, as a test, i'm not asking you to develop anything related to the GameDev itself but as a test to know if you know how to handle basic native javascript interactions.
+
+We have a set of images i'll provide you. You'll just have to build a "mini map editor", when you click on the images on the left (the items: grass, dirt...) it should put it on the map on the right.
+
+There is 2 layers possible
+    Layer 1: Grass, Dirt, Road
+    Layer 2: Bushes, Trees
+
+User should be able to put grass for example and a Tree on top of that (2 layers).
+
+Export the map in a file and import one.
+
+User can select the width and height of his map by entering two numbers. If the new height or width his higher than the previous, new tiles are added on the right or bottom of the map. If the new height or width is lower than before, tiles disapear from the right and bottom.
+
+User can click on a tile, the tile border light up and he can select the ground (layer 1: grass or dirt) and object (layer 2: brushes and trees). Only one thing can be selected by layer, if the user select something different the new choice replace the older one.
+
+User can click on export and download the map he just created as a json file.
+User can click on import and select a json file of a map previously created.
+
+
+==============================
+
+The interface doesn't need to be nice, the JS code must be clean, you can't use any frameworks, it must be native javascript.
+
+This is not a Game Developpement, it's just clicking on images (left side) and make it appears on the (right side).
+
+
+Feel free to ask questions :)

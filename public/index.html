@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="toolbar">
+        <div>
+          <button>Import</button>
+          <button>Export</button>
+        </div>
+        <form id="map-size-form" action="#">
+          <label>
+            <span>Width:</span>
+            <input id="map-size-height" type="number" />
+          </label>
+          <label>
+            <span>Height:</span>
+            <input id="map-size-height" type="height" />
+          </label>
+          <button type="submit">Change</button>
+        </form>
+      </div>
+      <div id="assets-pane"></div>
+      <div id="map-pane"></div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
