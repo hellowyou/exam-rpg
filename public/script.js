@@ -119,9 +119,9 @@
     form.onsubmit = (e) => {
       e.preventDefault();
       setMapSize(+widthEl.value, +heightEl.value);
+      removeOutboundedTiles();
       renderMap();
       setActiveTile({ x: 0, y: 0 });
-      // TODO: Remove outbounded items in mapConfig.items
     }
 
     // Pre-fill the form inputs
@@ -172,6 +172,13 @@
     tileEl.addEventListener('click', () =>
       setActiveTile(parseCoordsFromTileHTMLElement(tileEl))
     )
+  }
+
+  function removeOutboundedTiles() {
+    const { size: { width, height } } = mapConfig;
+    const filterOutbounded = ({ x, y }) => x < width && y < height;
+
+    mapConfig.items = mapConfig.items.filter(filterOutbounded);
   }
 
   /**
