@@ -295,6 +295,7 @@
 
         setupMapSize();
         renderMap();
+        setActiveTile({ x: 0, y: 0 });
       } catch (e) {
         alert('Error importing file: ' + e.message);
       }
