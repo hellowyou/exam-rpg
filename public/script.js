@@ -43,8 +43,8 @@
 
       addClass(assetEl, 'asset-item');
       elementData(assetEl, 'asset', asset);
-      assetEl.src = assetInfo.src;
-      assetEl.title = assetInfo.label;
+      assetEl.setAttribute('src', assetInfo.src);
+      assetEl.setAttribute('title', assetInfo.label);
 
       assetsPaneEl.appendChild(assetEl);
       assetEl.addEventListener('click', () => {
@@ -101,7 +101,7 @@
           const { asset } = item.layers[level];
           const el = document.createElement('img');
 
-          el.src = assets[asset].src;
+          el.setAttribute('src', assets[asset].src);
           el.style.zIndex = +level;
           tileEl.appendChild(el);
         });
@@ -281,6 +281,11 @@
     }
   }
 
+  /**
+   * Handle import button click event.
+   *
+   * @param {Event} e
+   */
   function onImportClick(e) {
     e.preventDefault();
     const importInput = document.getElementById('import-input');
@@ -302,6 +307,11 @@
     }
   }
 
+  /**
+   * Handle export button click event
+   *
+   * @param {Event} e
+   */
   function onExportClick(e) {
     e.preventDefault();
     const dlEl = document.getElementById('download-anchor');
