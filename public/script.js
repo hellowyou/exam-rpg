@@ -102,6 +102,7 @@
           const el = document.createElement('img');
 
           el.src = assets[asset].src;
+          el.style.zIndex = +level;
           tileEl.appendChild(el);
         });
       }
