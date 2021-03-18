@@ -39,7 +39,6 @@ button {
   display: grid;
   grid-gap: 0px;
   flex-grow: 1;
-  border: 1px solid rgb(143, 143, 143);
 }
 
 .asset-item {
