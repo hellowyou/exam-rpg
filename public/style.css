@@ -70,3 +70,7 @@ button {
 .tile.active {
   border-color: blue;
 }
+
+.hidden {
+  display: none;
+}

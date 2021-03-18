@@ -25,7 +25,7 @@
   const mapPanelEL = document.getElementById('map-pane');
   const widthEl = document.getElementById('map-size-width');
   const heightEl = document.getElementById('map-size-height');
-  const mapConfig = {
+  let mapConfig = {
     size: {
       width: 15,
       height: 10,
@@ -273,6 +273,36 @@
     }
   }
 
+  function onImportClick(e) {
+    e.preventDefault();
+    const importInput = document.getElementById('import-input');
+
+    importInput.click();
+
+    importInput.onchange = async (event) => {
+      const file = event.target.files[0];
+
+      try {
+        mapConfig = JSON.parse(await file.text());
+
+        setupMapSize();
+        renderMap();
+      } catch (e) {
+        alert('Error importing file: ' + e.message);
+      }
+    }
+  }
+
+  function onExportClick(e) {
+    e.preventDefault();
+    const dlEl = document.getElementById('download-anchor');
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(mapConfig));
+
+    dlEl.setAttribute('href', dataStr);
+    dlEl.setAttribute('download', 'map-config.json');
+    dlEl.click();
+  }
+
 
   /**
    * Initialization
@@ -282,6 +312,9 @@
     setupMapSize();
     renderMap();
     setActiveTile({ x: 0, y: 0 });
+
+    document.getElementById('import-btn').addEventListener('click', onImportClick);
+    document.getElementById('export-btn').addEventListener('click', onExportClick);
   }
 
   init();
